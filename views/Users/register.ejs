@@ -1,0 +1,47 @@
+<% layout('layouts/boilerplate') %>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="row w-100">
+        <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3">
+            <div class="card shadow">
+                <img class="card-img" src="https://images.unsplash.com/photo-1519708495087-ca1b71df408c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTJ8fGNhbXB8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60">
+              <div class="card-body">
+                <h1 class="text-center">REGISTER NEW USER</h1>
+                <form method="POST" action="/register" class="validated-form" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="username">USERNAME</label>
+                    <input class="form-control" type="text" name="username" id="username" autofocus required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Username can't be empty
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="email">EMAIL</label>
+                    <input class="form-control" type="email" name="email" id="email" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Provide a valid email
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="password">PASSWORD</label>
+                    <input class="form-control" type="password" name="password" id="password" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Enter a strong password
+                    </div>
+                </div>
+                <button class="btn btn-success btn-block" type="submit">CREATE USER</button>
+                </form>
+                <a class="btn btn-light mt-3 btn-block" href="/campground">Cancel</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
