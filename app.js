@@ -18,6 +18,7 @@ const app = express();
 const { isLoggedIn } = require("./middleware");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
+const favicon = require("serve-favicon");
 
 const expressError = require("./utils/ExpressError");
 const userroute = require("./Routes/user");
@@ -72,6 +73,7 @@ app.use(
     crossOriginEmbedderPolicy: false,
   })
 );
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 const scriptSrcUrls = [
   "https://stackpath.bootstrapcdn.com/",
