@@ -11,7 +11,7 @@
 <h1 class="mb-3">CampGrounds</h1>
 <div class="row" style="gap: 1rem">
   <% for(campground of campgrounds){ %>
-  <div class="card my-3 col-md">
+  <div class="card my-3" style="width: 32%">
     <a href="/campground/<%= campground._id %> "
       ><img
         style="width: 100%"
@@ -23,7 +23,7 @@
       <h5 class="card-title"><%= campground.title %></h5>
       <div class="card-text">
         <%= campground.description.length > 50? campground.description.slice(0,
-        50): campground.description %>
+        50) + "...": campground.description %>
       </div>
       <div class="card-text">
         <small class="text-muted"><%= campground.location %> </small>
