@@ -21,6 +21,7 @@ body{
     color:rgba(255, 255, 255, 0.794);
     border-bottom: 0.15rem solid rgba(255, 255, 255, 0.5);
     cursor: pointer;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .btn-secondary, .btn-secondary:hover{
     color: #333;
