@@ -7,7 +7,7 @@
   const campName = <%- JSON.stringify(campground)%>.title
 </script>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 mb-2">
     <div class="card">
       <div id="campgroundcarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -71,7 +71,7 @@
       <div class="card-footer">2 days to go</div>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 mb-2">
     <div id="map"></div>
     <% if(currentUser && (!(currentUser._id.equals(campground.author._id)) &&
     !(currentUser._id.equals(user_id)))){ %>
