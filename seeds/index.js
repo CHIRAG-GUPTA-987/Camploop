@@ -4,7 +4,7 @@ const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
 
 mongoose
-  .connect("mongodb://localhost:27017/CampGrounds")
+  .connect("mongodb+srv://Chirag987:qw12QWPO@cluster-cg.861by.mongodb.net/campDB?retryWrites=true&w=majority")
   .then(() => {
     console.log("Connected to Database");
   })
@@ -20,7 +20,7 @@ const rootCampGrounds = async () => {
     const randomPrice = Math.floor(Math.random() * 100);
     const randomCity = Math.floor(Math.random() * cities.length);
     const newCamp = new CampGround({
-      author: "625bb07948e1c1a19dc7471d",
+      author: "650704bd29e050695abf0a9f",
       title: `${getTitle(descriptors)} ${getTitle(places)}`,
       location: `${cities[randomCity].city}, ${cities[randomCity].state}`,
       geometry: {
@@ -32,7 +32,7 @@ const rootCampGrounds = async () => {
       },
       images: [
         {
-          url: "https://res.cloudinary.com/dxgbebpzs/image/upload/v1650513329/YELPCAMPCG/zg3xovn5noscizu9vz43.jpg",
+          url: "https://res.cloudinary.com/dxgbebpzs/image/upload/v1650914590/YELPCAMPCG/eo9mduss5j73ypsqoyqi.jpg",
           filename: "YELPCAMPCG/zg3xovn5noscizu9vz43",
         },
       ],
