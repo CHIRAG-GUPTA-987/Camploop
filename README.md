@@ -142,6 +142,6 @@ This project is licensed under the MIT License.
 
 ## 🙋‍♂️ Author
 
--Built with ❤️ by Chirag Gupta
--GitHub: https://github.com/CHIRAG-GUPTA-987/Camploop
--LinkedIn: https://www.linkedin.com/in/chirag-gupta-51829a203/
+- Built with ❤️ by **Chirag Gupta**
+- [GitHub](https://github.com/CHIRAG-GUPTA-987/Camploop)
+- [LinkedIn](https://www.linkedin.com/in/chirag-gupta-51829a203/)
