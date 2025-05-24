@@ -35,5 +35,8 @@
     "sani": "^0.0.1",
     "sanitize-html": "^2.17.0",
     "serve-favicon": "^2.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
