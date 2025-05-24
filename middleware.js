@@ -1,9 +1,12 @@
 const CampGround = require("./Models/CampGrounds");
+
 const Review = require("./Models/review");
+
 const {
   campgroundSchema,
   reviewSchema,
 } = require("./Validations/validateschemas");
+
 const expressError = require("./utils/ExpressError");
 
 const isLoggedIn = (req, res, next) => {
@@ -12,6 +15,7 @@ const isLoggedIn = (req, res, next) => {
   req.flash("error", "You must be logged in first!!!");
   res.redirect("/login");
 };
+
 const isAuthor = async (req, res, next) => {
   const { id } = req.params;
   const camp = await CampGround.findById(id);
@@ -22,6 +26,7 @@ const isAuthor = async (req, res, next) => {
   );
   res.redirect(`/campground/${id}`);
 };
+
 const validateCampGround = (req, res, next) => {
   const { error: campError } = campgroundSchema.validate(req.body);
   if (campError) {
@@ -30,6 +35,7 @@ const validateCampGround = (req, res, next) => {
     throw new expressError(`${errmessage}`, 500);
   } else next();
 };
+
 const validateReview = (req, res, next) => {
   const { error: reviewError } = reviewSchema.validate(req.body);
   if (reviewError) {
@@ -37,6 +43,7 @@ const validateReview = (req, res, next) => {
     throw new expressError(`${errmessage}`, 500);
   } else next();
 };
+
 const isReviewAuthor = async (req, res, next) => {
   const { reviewID, id } = req.params;
   const camp = await CampGround.findById(id).populate("author");
@@ -49,6 +56,7 @@ const isReviewAuthor = async (req, res, next) => {
   );
   res.redirect(`/campground/${id}`);
 };
+
 const isReview = async (req, res, next) => {
   const { reviewID, id } = req.params;
   const camp = await CampGround.findById(id).populate("reviews");

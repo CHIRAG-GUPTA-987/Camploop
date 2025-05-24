@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-const { campgroundSchema } = require("../Validations/validateschemas");
 const Review = require("./review");
-const User = require("./user");
 const Schema = mongoose.Schema;
 const opts = { toJSON: { virtuals: true } };
 
@@ -9,6 +7,7 @@ const imageSchema = new Schema({
   url: String,
   filename: String,
 });
+
 imageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_200");
 });

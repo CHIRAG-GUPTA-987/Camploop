@@ -4,6 +4,7 @@ const CampGround = require("../Models/CampGrounds");
 module.exports.fakeReviewtoCampgrounds = (req, res) => {
   res.redirect("/campground");
 };
+
 module.exports.newReview = async (req, res) => {
   const campground = await CampGround.findById(req.params.id);
   const review = new Review(req.body.review);
@@ -17,6 +18,7 @@ module.exports.newReview = async (req, res) => {
   );
   res.redirect(`/campground/${campground._id}`);
 };
+
 module.exports.deleteReview = async (req, res) => {
   const { id, reviewID } = req.params;
   const campground = await CampGround.findByIdAndUpdate(id, {

@@ -68,7 +68,7 @@
         </form>
       </div>
       <% } %>
-      <div class="card-footer">2 days to go</div>
+      <div class="card-footer"><%= currentUser? (currentUser._id.equals(campground.author._id)? "The campground is added by you": (campground.reviews.length? ((currentUser._id.equals(user_id))? "You reviewed this campground": "Campground contains reviews, you can add more"): "Be the first one to review this campground")): "Login to review this campground" %></div>
     </div>
   </div>
   <div class="col-md-6 mb-2">

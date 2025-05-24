@@ -9,14 +9,12 @@ const mongoose = require("mongoose");
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
-const joi = require("joi");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./Models/user");
 const app = express();
-const { isLoggedIn } = require("./middleware");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const favicon = require("serve-favicon");
@@ -49,10 +47,7 @@ const sessionSecret = {
   },
 };
 
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(dbUrl);
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -60,14 +55,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(session(sessionSecret));
 app.use(flash());
+
 app.use(express.static(path.join(__dirname, "./public")));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(
-  mongoSanitize({
-    replaceWith: "_",
-  })
-);
+
+app.use((req, res, next) => {
+  if (req.body) {
+    mongoSanitize.sanitize(req.body, { replaceWith: "_" });
+  }
+  if (req.params) {
+    mongoSanitize.sanitize(req.params, { replaceWith: "_" });
+  }
+  next();
+});
+
 app.use(
   helmet({
     contentSecurityPolicy: false,
@@ -104,26 +106,26 @@ const connectSrcUrls = [
 
 const fontSrcUrls = [];
 
-// app.use(
-//     helmet.contentSecurityPolicy({
-//         directives: {
-//             defaultSrc: [],
-//             connectSrc: ["'self'", ...connectSrcUrls],
-//             scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-//             styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-//             workerSrc: ["'self'", "blob:"],
-//             objectSrc: [],
-//             imgSrc: [
-//                 "'self'",
-//                 "blob:",
-//                 "data:",
-//                 `https://res.cloudinary.com/dxgbebpzs/`,
-//                 "https://images.unsplash.com"
-//             ],
-//             fontSrc: ["'self'", ...fontSrcUrls]
-//         }
-//     })
-// )
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: [],
+      connectSrc: ["'self'", ...connectSrcUrls],
+      scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+      workerSrc: ["'self'", "blob:"],
+      objectSrc: [],
+      imgSrc: [
+        "'self'",
+        "blob:",
+        "data:",
+        `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`,
+        "https://images.unsplash.com",
+      ],
+      fontSrc: ["'self'", ...fontSrcUrls],
+    },
+  })
+);
 
 passport.use(new localStrategy(User.authenticate()));
 
@@ -145,8 +147,8 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.all("*", (req, res, next) => {
-  next(new expressError());
+app.use((req, res, next) => {
+  next(new expressError("Page Not Found", 404));
 });
 
 app.use((err, req, res, next) => {

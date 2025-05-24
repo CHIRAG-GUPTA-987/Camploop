@@ -3,15 +3,16 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
-const { ConnectionStates } = require("mongoose");
 
 module.exports.showAllCampgrounds = async (req, res) => {
   const campgrounds = await CampGround.find({});
   return res.render("Campgrounds/index", { campgrounds });
 };
+
 module.exports.renderNewForm = (req, res) => {
   res.render("Campgrounds/new");
 };
+
 module.exports.createNewCampground = async (req, res) => {
   const loc = await geocoder
     .forwardGeocode({
@@ -24,7 +25,6 @@ module.exports.createNewCampground = async (req, res) => {
     return res.redirect("/campground/new");
   }
   const { title, price, description, location } = req.body.CampGround;
-  console.log(title);
   const newCamp = new CampGround({
     title: title,
     price: price,
@@ -41,6 +41,7 @@ module.exports.createNewCampground = async (req, res) => {
   req.flash("success", `Successfully added ${newCamp.title}`);
   res.redirect(`/campground/${newCamp._id}`);
 };
+
 module.exports.showCampground = async (req, res) => {
   const { id } = req.params;
   req.session.returnTo = req.originalUrl;
@@ -67,6 +68,7 @@ module.exports.showCampground = async (req, res) => {
   }
   res.render("Campgrounds/show", { campground, user_id });
 };
+
 module.exports.editForm = async (req, res) => {
   const { id } = req.params;
   const campground = await CampGround.findById(id);
@@ -76,6 +78,7 @@ module.exports.editForm = async (req, res) => {
   }
   res.render("Campgrounds/edit", { campground });
 };
+
 module.exports.editCampground = async (req, res) => {
   const { id } = req.params;
   const { price, description, location } = req.body.CampGround;
@@ -104,6 +107,7 @@ module.exports.editCampground = async (req, res) => {
   req.flash("success", `Successfully updated ${campEdit.title}`);
   return res.redirect(`/campground/${campEdit._id}`);
 };
+
 module.exports.deleteCampground = async (req, res) => {
   const { id } = req.params;
   const deletedCamp = await CampGround.findByIdAndDelete(id);

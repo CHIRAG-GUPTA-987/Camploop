@@ -4,7 +4,7 @@ const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
 
 mongoose
-  .connect("mongodb+srv://Chirag987:qw12QWPO@cluster-cg.861by.mongodb.net/campDB?retryWrites=true&w=majority")
+  .connect(process.env.DB_URL)
   .then(() => {
     console.log("Connected to Database");
   })

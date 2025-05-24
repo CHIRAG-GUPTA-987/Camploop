@@ -1,7 +1,7 @@
 const baseJoi = require("joi");
 const sanitizeHTML = require("sanitize-html");
 
-const extension = (joi) => ({
+const joiExtension = (joi) => ({
   type: "string",
   base: joi.string(),
   messages: {
@@ -22,7 +22,7 @@ const extension = (joi) => ({
   },
 });
 
-const joi = baseJoi.extend(extension);
+const joi = baseJoi.extend(joiExtension);
 
 module.exports.campgroundSchema = joi.object({
   CampGround: joi
@@ -35,6 +35,7 @@ module.exports.campgroundSchema = joi.object({
     .required(),
   deleteImages: joi.array(),
 });
+
 module.exports.reviewSchema = joi.object({
   review: joi
     .object({
